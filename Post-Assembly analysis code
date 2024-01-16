@@ -1,0 +1,23 @@
+BUSCO for insecta/lepidoptera
+
+
+singularity exec -B /Volumes/scratch/deardenlab/KateM busco_v5.1.2_cv1.sif busco -i /Volumes/scratch/deardenlab/KateM/Josh_shenanigans/Gmellwd_RNA_Bloom_assembly/rnabloom.transcripts.fa -o busco_rnabloom_Gmellwd_insecta -m transcriptome -l insecta_odb10 -c 20
+
+Script for making the BLAST database of the assembled transcriptome
+
+
+BLAST_database_code.sh  (script title)
+
+#!/usr/bin/env bash
+set -eu
+
+makeblastdb -in Gmellwd_transcriptome.fasta -dbtype nucl -out Gmellwd_blast_db/Gmellwd_Transcriptome -parse_seqids
+
+Blastx_best_hits.sh
+#!/usr/bin/env bash
+set -eu
+
+blastx -query blast_transcript_hits.fasta -db nr_2023_03_20/nr -num_threads 10 -evalue 1e-05 -outfmt "6 std salltitles" > blastx_best_hits_targets.outfmt6
+
+outputs from BLAST were run through rstudio to construct tables of results for each gene. 
+
