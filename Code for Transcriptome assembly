@@ -9,7 +9,7 @@
         --flowcell FLO-MIN106 \
         --kit SQK-PCS111 \
          -r --device auto
-#-i is input file, -s is output save name, --flowcell is the flowcell used for sequencing, --kit is the sequencing kit used for cDNA conversion, -r 
+#-i is input file, -s is output save name, --flowcell is the flowcell used for sequencing, --kit is the sequencing kit used for cDNA conversion
 
 
 #FASTQC  quality check to ensure adapter removal was effective at improving transcriptome
@@ -19,6 +19,7 @@ fastqc -t 14 Gmellwd_reads_cat2.fastq
 fastqc -t 14 Gmellwd_reads_cat.fastq
 
 #porechop_abi was used as porechop is not supported for use with the SQK-PCS111 kit. 
+#porechop_abi version number 0.5.0 
 
 porechop_abi -abi -i ../Gmellwd_basecalled/pass/Gmellwd_reads_cat2.fastq -o Gmellwd_reads_catchop.fastq
 #porechop_abi was used with default settings.
