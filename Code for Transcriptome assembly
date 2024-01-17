@@ -1,33 +1,33 @@
  
-Used Guppy to basecall -> porechop_abi to remove adapters -> RNAbloom to assemble transcriptome
+#Used Guppy to basecall -> porechop_abi to remove adapters -> RNAbloom to assemble transcriptome
 
-Guppy nano script
+#Guppy nano script
 
- nano Guppy_command_Kate
 /Volumes/archive/scratch/deardenlab/Jgilligan/Guppy_from_nathan/ont-guppy/bin/guppy_basecaller \
         -i /Volumes/archive/deardenlab/KateM \
         -s Gmellwd_basecalled \
         --flowcell FLO-MIN106 \
         --kit SQK-PCS111 \
          -r --device auto
-  
-FASTQC  quality check to ensure adapter removal was effective at improving transcriptome
-cat is pre-porechop files
-cat2 is post-porechop files
+#-i is input file, -s is output save name, --flowcell is the flowcell used for sequencing, --kit is the sequencing kit used for cDNA conversion, -r 
+
+
+#FASTQC  quality check to ensure adapter removal was effective at improving transcriptome
+#cat is pre-porechop files
+#cat2 is post-porechop files
 fastqc -t 14 Gmellwd_reads_cat2.fastq
 fastqc -t 14 Gmellwd_reads_cat.fastq
 
-porechop_abi was used as porechop is not supported for use with the SQK-PCS111 kit. 
+#porechop_abi was used as porechop is not supported for use with the SQK-PCS111 kit. 
 
 porechop_abi -abi -i ../Gmellwd_basecalled/pass/Gmellwd_reads_cat2.fastq -o Gmellwd_reads_catchop.fastq
+#porechop_abi was used with default settings.
 
-Transcriptome assembly with RNAbloom 
+#Transcriptome assembly with RNAbloom 
 
-used version 2.26 of RNAbloom 
-mamba install -c bioconda rnabloom
-mamba activate rnabloom
+#used version 2.26 of RNAbloom 
 rnabloom -long Gmellwd_reads_catchop.fastq -ntcard -t 64 -outdir Gmellwd_RNA_Bloom_assembly/
 rnabloom -h
 
-rna bloom used with long read presets and ntcard option turned on
+#rna bloom used with long read presets and ntcard option turned on
 
